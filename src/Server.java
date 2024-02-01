@@ -66,9 +66,11 @@ public class Server {
                 while ((line = br.readLine()) != null) {
                     mensajes.add(line);
                     for (Socket sock : connections) {
-                        bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
-                        bw.write(line + "\n");
-                        bw.flush();
+                        if(sock != socket) {
+                            bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
+                            bw.write(line + "\n");
+                            bw.flush();
+                        }
                     }
                 }
             } catch (Exception e) {
